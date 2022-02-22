@@ -1,7 +1,8 @@
-import PropTypes from "prop-types";
-import { connect } from "react-redux"
+import { useDispatch } from "react-redux";
 import {removeName} from '../../redux/contacts/contactsAction.js';
-const ContactsListItem = ({ filter, removeName }) => {
+
+const ContactsListItem = ({ filter }) => {
+  const dispatch = useDispatch();
   return (
     <>
       {filter.map((contact) => (
@@ -12,7 +13,7 @@ const ContactsListItem = ({ filter, removeName }) => {
           <button
             type="button"
             onClick={(e) => {
-              removeName(contact.name);
+             dispatch(removeName(contact.name)) ;
             }}
           >
             Delete
@@ -23,18 +24,4 @@ const ContactsListItem = ({ filter, removeName }) => {
   );
 };
 
-ContactsListItem.prototypes = {
-  filter: PropTypes.string.isRequired,
-  removeName: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      contact: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
-
-const mapDispatchToProps = {
-  removeName: removeName
-}
-export default connect(null,mapDispatchToProps)(ContactsListItem);
+export default ContactsListItem;

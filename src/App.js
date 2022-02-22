@@ -1,11 +1,14 @@
-import { connect} from "react-redux"
 import "./App.css";
 import Form from "./Components/Form/Form";
 import ContactsListItem from "./Components/ContactsListItem/ContactsListItem";
 import FilterItems from "./Components/FilterItems/FilterItems";
+import { useSelector } from "react-redux";
 
 
-const App = ({ contacts,  filter}) => {
+const App = () => {
+  const contacts = useSelector((state) => state.contacts.items);
+  const filter = useSelector((state) => state.contacts.filter)
+
   const filterItems = (query) => {
     return contacts.filter((item) => item.name.toLowerCase().includes(query.toLowerCase()) && item);
   };
@@ -23,15 +26,5 @@ const App = ({ contacts,  filter}) => {
   );
 };
 
-const mapSTP = (state) => {
-  console.log(state);
-  return{
-    contacts: state.contacts.items,
-    filter: state.contacts.filter
-  }
-  
-}
 
-
-
-export default connect(mapSTP)(App);
+export default App;

@@ -1,14 +1,12 @@
-import { connect} from "react-redux";
+import { useDispatch } from "react-redux";
 import { filterValue} from '../../redux/contacts/contactsAction';
-const FilterItems = ({ filterValueProp}) => {
+const FilterItems = () => {
+  const dispatch = useDispatch();
     return ( <><input onChange={(e) => {
         const { value } = e.target;
-        filterValueProp(value)
+        dispatch(filterValue(value))
     }} name="filter" >
     </input></> );
 }
 
-  const mapDispatchToProps = {
-    filterValueProp: filterValue
-  }
-export default connect(null, mapDispatchToProps)(FilterItems) ;
+export default FilterItems;

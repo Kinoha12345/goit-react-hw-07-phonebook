@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { nanoid } from "nanoid";
-import { connect} from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
 import {addContact} from '../../redux/contacts/contactsAction';
-const Form = ({contacts, addContactProp}) => {
+
+const Form = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.contacts.items)
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const onInputValue = (e) => {
@@ -28,7 +31,7 @@ const Form = ({contacts, addContactProp}) => {
     };
     const dublicate = contacts.some((el) => el.name.toLowerCase() === name.toLowerCase());
     if (!dublicate) {
-      return addContactProp(newContact);
+      return dispatch(addContact(newContact)) ;
     } else {
       alert(`${name} alredy in contacts`);
     }
@@ -60,14 +63,4 @@ const Form = ({contacts, addContactProp}) => {
      
 }
 
-const mapSTP = (state) => {
-  return{
-    contacts: state.contacts.items,
-  }
-}
-
-const mapDispatchToProps = {
-  addContactProp: addContact, 
-}
-
-export default connect(mapSTP,mapDispatchToProps)(Form) ;
+export default Form ;
