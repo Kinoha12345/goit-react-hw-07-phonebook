@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { nanoid } from "nanoid";
 import { useSelector, useDispatch } from "react-redux";
-import {addContact} from '../../redux/contacts/contactsAction';
+import {addContact} from '../../redux/contacts/contactsOperations';
 
 const Form = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.items)
+  const contacts = useSelector((state) => state.contacts.items);
+  
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const onInputValue = (e) => {
@@ -55,6 +56,7 @@ const Form = () => {
   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
   required
 />
+
       <button type="submit" >Add Contact</button>
        </form>
       

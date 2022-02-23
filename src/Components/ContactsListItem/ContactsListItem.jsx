@@ -1,11 +1,11 @@
-import { useDispatch } from "react-redux";
-import {removeName} from '../../redux/contacts/contactsAction.js';
-
-const ContactsListItem = ({ filter }) => {
+import { useDispatch, useSelector } from "react-redux";
+import {removeContacts} from '../../redux/contacts/contactsOperations';
+const ContactsListItem = ({ filterItems }) => {
+  const filter = useSelector((state) => state.contacts.filter)
   const dispatch = useDispatch();
   return (
     <>
-      {filter.map((contact) => (
+      {filterItems(filter).map((contact) => (
         <li key={contact.id}>
           <p>
             {contact.name}:{contact.number}
@@ -13,7 +13,7 @@ const ContactsListItem = ({ filter }) => {
           <button
             type="button"
             onClick={(e) => {
-             dispatch(removeName(contact.name)) ;
+             dispatch(removeContacts(contact.id)) ;
             }}
           >
             Delete
